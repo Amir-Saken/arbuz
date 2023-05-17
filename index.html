@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Arbuz.kz тестовое задание</title>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+        $(document).ready(function() {
+          // Получение списка продуктов
+          $.ajax({
+            url: 'api.php/products',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+              // Отображение списков продуктов
+              var products = response;
+              for (var i = 0; i < products.length; i++) {
+                var product = products[i];
+                $('#products').append('<option value="' + product.id + '">' + product.name + '</option>');
+              }
+            },
+            error: function() {
+              alert('Ошибка при получении списка продуктов.');
+            }
+          });
+
+          // Создание подписки на доставку
+          $('#subscribe').on('click', function() {
+            var selectedProducts = $('#products').val();
+            var deliveryAddress = $('#delivery_address').val();
+            var phoneNumber = $('#phone_number').val();
+            var subscriptionPeriod = $('#subscription_period').val();
+
+            var data = {
+              products: selectedProducts,
+              delivery_address: deliveryAddress,
+              phone_number: phoneNumber,
+              subscription_period: subscriptionPeriod
+            };
+
+            $.ajax({
+              url: 'api.php/subscriptions',
+              method: 'POST',
+              dataType: 'json',
+              data: JSON.stringify(data),
+              contentType: 'application/json',
+              success: function(response) {
+                alert('Подписка успешно создана! Идентификатор подписки: ' + response.subscription_id);
+              },
+              error: function() {
+                alert('Ошибка при создании подписки.');
+              }
+            });
+          });
+        });
+      </script>
+    </head>
+      <body>
+        <h1>Arbuz.kz тестовое задание</h1>
+
+        <label for="products">Выберите продукты:</label>
+        <select id="products" multiple></select>  <br><br>
+        <label for="delivery_address">Адрес доставки:</label>
+        <input type="text" id="delivery_address"><br><br>
+        <label for="phone_number">Телефон заказчика:</label>
+        <input type="text" id="phone_number"><br><br>
+        <label for="subscription_period">Срок подписки (недели):</label>
+        <input type="number" id="subscription_period" min="1"><br><br>
+        <button id="subscribe">Подписаться</button>
+      </body>
+  </html>
