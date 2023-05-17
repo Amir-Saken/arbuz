@@ -1,5 +1,7 @@
 <?php
 
+
+
 // Получение списка продуктов
 function getProducts()
 {

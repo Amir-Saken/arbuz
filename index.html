@@ -8,7 +8,7 @@
         $(document).ready(function() {
           // Получение списка продуктов
           $.ajax({
-            url: 'api.php/products',
+            url: 'https://arbuz-production.up.railway.app/api.php/products',
             method: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -39,7 +39,7 @@
             };
 
             $.ajax({
-              url: 'api.php/subscriptions',
+              url: 'https://arbuz-production.up.railway.app/api.php/subscriptions',
               method: 'POST',
               dataType: 'json',
               data: JSON.stringify(data),
