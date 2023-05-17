@@ -2,6 +2,18 @@
 
 
 
+$host = 'containers-us-west-174.railway.app';
+$dbname = 'railway';
+$user = 'postgres';
+$password = 'vsCc5VOpIln5kv6tmaOB';
+
+try {
+    $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connected to the PostgreSQL database successfully";
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
 // Получение списка продуктов
 function getProducts()
 {
