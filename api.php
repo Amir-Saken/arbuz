@@ -8,7 +8,7 @@ $user = 'postgres';
 $password = 'vsCc5VOpIln5kv6tmaOB';
 
 try {
-    $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
+    $pdo = new PDO("pgsql:host=$host;port=6349;dbname=$dbname", $user, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Connected to the PostgreSQL database successfully";
 } catch (PDOException $e) {
